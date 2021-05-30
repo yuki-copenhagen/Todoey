@@ -32,7 +32,7 @@ class CategoryViewController: UITableViewController {
     }
     
     
-    //MARK: - TableView Delegate Methods
+    //MARK: - TableView Dlegate Methods
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "goToItems", sender: self)

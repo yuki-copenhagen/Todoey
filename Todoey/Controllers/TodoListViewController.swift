@@ -6,10 +6,9 @@ import RealmSwift
 class TodoListViewController: UITableViewController {
     
   //  let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
     var toDoItems: Results<Item>?
-    
     let realm = try! Realm()
-    
     var selectedCategory : Category? {
         didSet {
          loadItems()
@@ -41,6 +40,8 @@ class TodoListViewController: UITableViewController {
         itemArray = items
         }    // to retrieve saved data */
     }
+    
+    //MARK: - TableView Datasource Methods
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return toDoItems?.count ?? 1
@@ -85,8 +86,8 @@ class TodoListViewController: UITableViewController {
             do {
                 try realm.write {
                     
-                    
-                item.done = !item.done
+              //      realm.delete(item) //delete selected
+               item.done = !item.done // checkmark add/delete
                 }
             }catch {
                 print("Error saving done status, \(error)")
@@ -137,8 +138,9 @@ class TodoListViewController: UITableViewController {
                     try self.realm.write {
                     let newItem = Item()
                     newItem.title = textField.text!
+                    newItem.dateCreated = Date()
                     currentCategory.items.append(newItem)
-                }
+                    }
                 } catch {
                     print("Error saving items \(error)")
                 }
@@ -218,22 +220,23 @@ do {
     
     tableView.reloadData()
 }
+}
 
 //MARK: - Search Bar
 
-/* extension TodoListViewController: UISearchBarDelegate {
+ extension TodoListViewController: UISearchBarDelegate {
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        toDoItems = toDoItems?.filter("title CONTAINS [cd] %@", searchBar.text!).sorted(byKeyPath: "title", ascending: true)
        
-        let request: NSFetchRequest<Item> = Item.fetchRequest()
-
+    /*    let request: NSFetchRequest<Item> = Item.fetchRequest()
         let predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
-        
         request.predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
-        
         request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+        loadItems(with: request, predicate: predicate) */
         
-        loadItems(with: request, predicate: predicate)
-        
+        tableView.reloadData()
     }
     
     func searchBar (_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -247,12 +250,12 @@ do {
     }
         
      //   request.sortDescriptors = [sortDescriptor]
-        
        /* do {
        itemArray = try context.fetch(request)
         } catch {
             print ("Error fetching data from context \(error)")
         } */
       //  tableView.reloadData()
-} */
+
 }
+

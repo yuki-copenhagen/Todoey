@@ -1,6 +1,5 @@
 
 import UIKit
-import CoreData
 import RealmSwift
 
 @UIApplicationMain
@@ -11,7 +10,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        print(Realm.Configuration.defaultConfiguration.fileURL)
+     //   print(Realm.Configuration.defaultConfiguration.fileURL)
        
        /* let data = Data()
         data.name = "Angela"
@@ -19,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         do {
-        let realm = try Realm()
+        /*let realm*/_ = try Realm()
          //  try realm.write {
          //       realm.add(data)
          // }
@@ -31,13 +30,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
+    /*
     func applicationWillTerminate(_ application: UIApplication) {
         self.saveContext()
     }
 
-    // MARK: - Core Data stack
+    // MARK: - Core Data Stack
 
-    lazy var persistentContainer: NSPersistentContainer = { //NSPersistentContainer - database
+  lazy var persistentContainer: NSPersistentContainer = { //NSPersistentContainer - database
        
         let container = NSPersistentContainer(name: "DataModel") // match DataModel
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
@@ -49,7 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return container
     }()
 
-    // MARK: - Core Data Saving support
+    // MARK: - Core Data Saving Support
 
     func saveContext () {
         let context = persistentContainer.viewContext //area where you can change /update your datat before moving it to the permanent storage
@@ -63,7 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-
+*/
 }
 
 
